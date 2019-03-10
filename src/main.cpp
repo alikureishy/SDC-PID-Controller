@@ -44,17 +44,17 @@ int main() {
   // This pid controll is specifically tailored to the throttle.
   // It should reduce/increase the throttle depending on how fast
   // the CTE is increasing/decreasing (respectively)
-  PID throttle_pid;
-  double throttle_k_p = 0.0;
-  double throttle_k_d = 0.05;
-  double throttle_k_i = 0.0;
-  throttle_pid.init(throttle_k_p, throttle_k_d, throttle_k_i);
+  // PID throttle_pid;
+  // double throttle_k_p = 0.0;
+  // double throttle_k_d = 0.05;
+  // double throttle_k_i = 0.0;
+  // throttle_pid.init(throttle_k_p, throttle_k_d, throttle_k_i);
 
   /**
    * TODO: Initialize the pid variable.
    */
 
-  h.onMessage([&steering_pid, &throttle_pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
+  h.onMessage([&steering_pid/*, &throttle_pid*/](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -78,7 +78,7 @@ int main() {
            * control both the steering and the speed
            */
           steering_pid.updateError(cte);
-          throttle_pid.updateError(cte);
+          // throttle_pid.updateError(cte);
           double steer_control = steering_pid.getControlSignal();
           double throttle_control = 0.3;  //throttle_pid.getControlSignal();
 
