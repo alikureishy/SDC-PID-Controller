@@ -34,7 +34,8 @@ The coefficients (P, I and D) of the PID controller each served the following ne
 
 I selected the parameters manually, based on intuition.
 
-|| # || Kp || Kd || Ki || Outcome || Next step ||
+| # | Kp | Kd | Ki | Outcome | Next step |
+|---|---|---|---|---|---|
 | 1  | 0.03 | 0.005 | 0.0 | Car steady but drives off road very quickly. | Need to speed up error correction, so increase Kp. |
 | 2  | 0.3 | 0.8 | 0.0 | Car was prompt in returning from edges (even sharp ones). Oscillations would converge, but to a high amplitude. Car drove off road on a couple of sharp turns. Passengers would be rather dizzy. | Need to reduce the amplitute of oscillations, while keeping everything else the same. |
 | 3  | 0.3 | 1.3 | 0.0 | Oscillations reduced significantly. Responsiveness to sharp turns remained good. Kp value of 0.3 seems just right, if oscillations can be minimized. Speed went as high as 29. Still drove off road a couple of times. | Minimize oscillations further. |
