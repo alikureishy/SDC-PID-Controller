@@ -3,6 +3,31 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+## Overview
+
+This project entails building a PID controller that allows a car to drive while minimizing the cross-track-error (CTE). The CTE value is obtained from the simulator (listed below), along with the present speed and steering angle.
+
+## Implementation
+
+Upon receiving the CTE, the PID controller keeps track of 3 values:
+- the current CTE (for the P term)
+- the difference between the previous and current CTE (for the D term)
+- the cumulative total CTE since the beginning of the simulation (for the I term)
+
+It then uses the PID controller formula to calculate the control signal needed for the steering angle.
+
+## Parameter Tuning
+
+The coefficients (P, I and D) of the PID controller each served the following needs in this simulation:
+- The P coefficient was for the vehicle to quickly correct its position relative to a CTE
+- The I coefficient was actually not needed in this project since there was no disturbance/noise that was working against the steering wheel.
+- The D coefficient was essential for minimizing oscillations, especially when a snappy P coefficient was utilized.
+
+Steps I followed to select the parameters:
+- Kept all coefficients to zero, and increased P to 0.1. Observed how quick the car was to respond to a CTE
+- 
+
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -25,8 +50,6 @@ Self-Driving Car Engineer Nanodegree Program
     ```
     Some function signatures have changed in v0.14.x. See [this PR](https://github.com/udacity/CarND-MPC-Project/pull/3) for more details.
 * Simulator. You can download these from the [project intro page](https://github.com/udacity/self-driving-car-sim/releases) in the classroom.
-
-Fellow students have put together a guide to Windows set-up for the project [here](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/files/Kidnapped_Vehicle_Windows_Setup.pdf) if the environment you have set up for the Sensor Fusion projects does not work for this project. There's also an experimental patch for windows in this [PR](https://github.com/udacity/CarND-PID-Control-Project/pull/3).
 
 ## Basic Build Instructions
 
