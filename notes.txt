@@ -1,0 +1,39 @@
+// Car steady (but drives off the road very quickly)
+  double steering_k_p = 0.03;
+  double steering_k_d = 0.005;
+  double steering_k_i = 0.0;
+    Note: p not large enough. Increase p.
+
+
+// Did pretty well with this -- oscilations were large but "steady". Car drove off road at one point.
+  double steering_k_p = 0.3;
+  double steering_k_d = 0.8;
+  double steering_k_i = 0.000;
+    Note: Need to reduce oscillations (increase d)
+
+// Did REALLY well, except for the oscillations. Did several laps (seems like it would not drive off)
+  double steering_k_p = 0.3;
+  double steering_k_d = 0.9;
+  double steering_k_i = 0.000;
+    Note: Need to stabilize (reduce oscillations). Increase d.
+
+// BEST so far. Oscillations reduced due to higher d.
+  double steering_k_p = 0.3;
+  double steering_k_d = 1.3;
+  double steering_k_i = 0.000;
+    Note: NEed to reduce oscillations further.
+        P seems to be set at just teh right value, since the car swerves quickly enough.
+        to avoid the edges of the road.
+            Increase d more.
+
+// *AWESOME . BEST so far! Oscillations reduced. Car STAYS within safe boundary!!!
+  double steering_k_p = 0.3;
+  double steering_k_d = 1.6;
+  double steering_k_i = 0.000;
+    Note: Need to reduce oscillations a bit more. Increase d again.
+
+// **. Most oscillations occur on the bridge. Elsewhere it is more stable.
+  double steering_k_p = 0.3;
+  double steering_k_d = 1.9;
+  double steering_k_i = 0.000;
+    Note: Need to reduce oscillations even further. Incrase d again.

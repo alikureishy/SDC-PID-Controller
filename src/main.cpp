@@ -33,12 +33,28 @@ string hasData(string s) {
 int main() {
   uWS::Hub h;
 
-  PID pid;
+  // This pid controll is specifically tailored to the steering wheel.
+  // It should adjust the steering value based on the CTE
+  PID steering_pid;
+  double steering_k_p = 0.3;
+  double steering_k_d = 1.9;
+  double steering_k_i = 0.000;
+  steering_pid.init(steering_k_p, steering_k_d, steering_k_i);
+
+  // This pid controll is specifically tailored to the throttle.
+  // It should reduce/increase the throttle depending on how fast
+  // the CTE is increasing/decreasing (respectively)
+  PID throttle_pid;
+  double throttle_k_p = 0.0;
+  double throttle_k_d = 0.05;
+  double throttle_k_i = 0.0;
+  throttle_pid.init(throttle_k_p, throttle_k_d, throttle_k_i);
+
   /**
    * TODO: Initialize the pid variable.
    */
 
-  h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
+  h.onMessage([&steering_pid, &throttle_pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -56,23 +72,27 @@ int main() {
           double cte = std::stod(j[1]["cte"].get<string>());
           double speed = std::stod(j[1]["speed"].get<string>());
           double angle = std::stod(j[1]["steering_angle"].get<string>());
-          double steer_value;
+
           /**
-           * TODO: Calculate steering value here, remember the steering value is
-           *   [-1, 1].
-           * NOTE: Feel free to play around with the throttle and speed.
-           *   Maybe use another PID controller to control the speed!
+           * This is the core of the project. Using 2 controllers here to
+           * control both the steering and the speed
            */
-          
+          steering_pid.updateError(cte);
+          throttle_pid.updateError(cte);
+          double steer_control = steering_pid.getControlSignal();
+          double throttle_control = 0.3;  //throttle_pid.getControlSignal();
+
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
+          std::cout << "CTE: " << cte
+                    << "\tSteering Value: " << steer_control
+                    // << "\tThrottle Value: " << throttle_control
                     << std::endl;
 
           json msgJson;
-          msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+          msgJson["steering_angle"] = steer_control;
+          msgJson["throttle"] = throttle_control;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
-          std::cout << msg << std::endl;
+          // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }  // end "telemetry" if
       } else {
@@ -87,7 +107,7 @@ int main() {
     std::cout << "Connected!!!" << std::endl;
   });
 
-  h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code, 
+  h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code,
                          char *message, size_t length) {
     ws.close();
     std::cout << "Disconnected" << std::endl;
@@ -100,6 +120,6 @@ int main() {
     std::cerr << "Failed to listen to port" << std::endl;
     return -1;
   }
-  
+
   h.run();
 }

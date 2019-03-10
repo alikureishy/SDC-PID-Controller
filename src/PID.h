@@ -15,23 +15,29 @@ class PID {
 
   /**
    * Initialize PID.
-   * @param (Kp_, Ki_, Kd_) The initial PID coefficients
+   * @param (Kp_, Kd_, Ki_) The initial PID coefficients
    */
-  void Init(double Kp_, double Ki_, double Kd_);
+  void init(double Kp_, double Kd_, double Ki_);
 
   /**
    * Update the PID error variables given cross track error.
    * @param cte The current cross track error
    */
-  void UpdateError(double cte);
+  void updateError(double cte);
 
   /**
    * Calculate the total PID error.
    * @output The total PID error
    */
-  double TotalError();
+  double totalError();
 
- private:
+  /**
+   * Calculates the control signal to be sent to the device
+   * being controlled.
+   */
+  double getControlSignal();
+
+private:
   /**
    * PID Errors
    */
@@ -41,7 +47,7 @@ class PID {
 
   /**
    * PID Coefficients
-   */ 
+   */
   double Kp;
   double Ki;
   double Kd;
