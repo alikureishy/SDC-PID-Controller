@@ -37,3 +37,44 @@
   double steering_k_d = 1.9;
   double steering_k_i = 0.000;
     Note: Need to reduce oscillations even further. Incrase d again.
+
+// ***.
+  double steering_k_p = 0.3;
+  double steering_k_d = 2.2;
+  double steering_k_i = 0.000;
+    Note: Increase d more.
+
+// ****. Reached speed of 34!
+  double steering_k_p = 0.3;
+  double steering_k_d = 2.5;
+  double steering_k_i = 0.000;
+    Note: Increase d a bit more!
+
+// *****. Reached speed of 34.6!
+  double steering_k_p = 0.3;
+  double steering_k_d = 3.0;
+  double steering_k_i = 0.000;
+    Note: Increase d
+
+// ***** (same as above). 34.6!
+  double steering_k_p = 0.3;
+  double steering_k_d = 3.5;
+  double steering_k_i = 0.000;
+
+// ****** (34.6 but with more stability)
+  double steering_k_p = 0.3;
+  double steering_k_d = 4.0;
+  double steering_k_i = 0.000;
+
+// ***** (34.4 ...  ??? Hmm.
+  double steering_k_p = 0.3;
+  double steering_k_d = 4.5;
+  double steering_k_i = 0.000;
+
+////////
+Faster; Throttle = 0.6
+
+// * Touches side in 1-2 places. Jittery.
+  double steering_k_p = 0.7;
+  double steering_k_d = 30.0;
+  double steering_k_i = 0.000;

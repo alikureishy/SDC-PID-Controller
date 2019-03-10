@@ -37,7 +37,7 @@ int main() {
   // It should adjust the steering value based on the CTE
   PID steering_pid;
   double steering_k_p = 0.3;
-  double steering_k_d = 1.9;
+  double steering_k_d = 3.0;
   double steering_k_i = 0.000;
   steering_pid.init(steering_k_p, steering_k_d, steering_k_i);
 
